@@ -15,9 +15,11 @@ class Result {
         float L = s.length();
         int m = (int) Math.floor(Math.sqrt(L));
         int n = (int) Math.ceil(Math.sqrt(L));
-        if( !(m*n >= L)){
-            return "invalid input";
+        
+        while(m*n < L){
+            n++;
         }
+        
         char[][] matrix = new char[m][n];
         int k = 0 ;
         
@@ -31,8 +33,10 @@ class Result {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < m; j++) {
+                if(matrix[j][i] == '\0') break;
                 sb.append(matrix[j][i]);
             }
+            
             sb.append(" ");
         }
         return sb.toString();
