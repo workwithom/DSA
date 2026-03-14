@@ -1,0 +1,1 @@
+if (i > 0 && v[i] == v[i - 1]) continue;
