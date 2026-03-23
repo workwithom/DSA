@@ -25,13 +25,13 @@ public class DijkstrasAlgo {
         }
 
         Solution obj = new Solution();
-        int[] ans = obj.dijkstra(V, edges, src);
+        List<Integer> ans = obj.dijkstra(V, edges, src);
         for(int i = 0 ; i < V ; i++ ){
-            System.out.print(ans[i] + " ");
+            System.out.print(ans.get(i) + " ");
         }
     }
     static class Solution {
-        public static int[] dijkstra(int V, int[][] edges, int src) {
+        public static List<Integer> dijkstra(int V, int[][] edges, int src) {
             List<List<Pair>> adj = new ArrayList<>(V);
             for(int i = 0 ; i < V ; i++ ) adj.add(new ArrayList<>());
             for(int i = 0 ; i < edges.length ; i++ ){
@@ -40,6 +40,8 @@ public class DijkstrasAlgo {
             }
             PriorityQueue<Pair> pq = new PriorityQueue<>((x,y)-> x.distance - y.distance);
             int[] dist = new int[V];
+            List<Integer> ans = new ArrayList<>();
+            
             Arrays.fill(dist,Integer.MAX_VALUE);
             dist[src] = 0 ;
             pq.add(new Pair(src,0));
@@ -48,6 +50,7 @@ public class DijkstrasAlgo {
                 Pair cur = pq.poll();
                 int dis = cur.distance;
                 int node = cur.node;
+                ans.add(node);
                 if(dis > dist[node]) continue;
                 
                 for(int i = 0 ; i < adj.get(node).size(); i++){
@@ -58,10 +61,11 @@ public class DijkstrasAlgo {
                     if(dis + ew < dist[an]){
                         dist[an] = dis + ew;
                         pq.add(new Pair(an, dist[an]));
+                        
                     }
                 }
             } 
-            return dist;
+            return ans;
         }
     }
 }
